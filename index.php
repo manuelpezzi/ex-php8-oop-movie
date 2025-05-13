@@ -1,4 +1,14 @@
-<?php 
+<?php
+//Definizone del Trait MovieInfo
+trait MovieInfo{
+    public $views = 0;
+
+    public function incrementViews(){
+        $this->views++;
+        return"il film{$this->title}è stato visualizzato{$this->views}volte";
+    }
+}
+
 //definizione della classe Genre
 
 class Genre{
@@ -16,6 +26,7 @@ class Genre{
 // Definizione della classe Movie
 
 class Movie {
+    use MovieInfo;
 
     public $title;
     public $director;
@@ -56,6 +67,10 @@ $adventureGenre = new Genre("Avventura", "Film con esplorazioni e viaggi emozion
 $movie1 = new Movie ("Mad Max: Fury Road", "George Miller", 2015, [$actionGenre,$adventureGenre]);
 $movie2 = new Movie ("The Shawshank Redemption", "Frank Darabont", 1994, [$dramaGenre]);
 
+ $movie1->incrementViews() ;
+ $movie1->incrementViews() ; 
+ $movie2->incrementViews() ;
+
 // Stampa dei valori delle proprietà dei film
 echo "<h2>Dettagli Film 1</h2>";
 echo "<p>" . $movie1->getMovieDetails() . "</p>";
@@ -64,6 +79,7 @@ $genreDescriptions = array_map(function($genre) {
     return $genre->description;
 }, $movie1->genres);
 echo implode("; ", $genreDescriptions) . "</p>";
+echo "<p>Visualizzazioni: {$movie1->views}</p>";
 
 echo "<h2>Dettagli Film 2</h2>";
 echo "<p>" . $movie2->getMovieDetails() . "</p>";
@@ -72,4 +88,7 @@ $genreDescriptions = array_map(function($genre) {
     return $genre->description;
 }, $movie2->genres);
 echo implode("; ", $genreDescriptions) . "</p>";
+echo "<p>Visualizzazioni: {$movie2->views}</p>";
+
+
 ?>
